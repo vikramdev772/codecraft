@@ -1,9 +1,8 @@
-import {api} from "./_generated/api";
+import { api } from "./_generated/api";
 import { httpRouter } from "convex/server";
 import { httpAction } from "./_generated/server";
 import { Webhook } from "svix";
 import { WebhookEvent } from "@clerk/nextjs/server";
-import { syncUser } from './user';
 
 const http = httpRouter();
 
@@ -51,14 +50,13 @@ http.route({
 
       try {
         // Save user to db
-
-        await ctx.runMutation(api.users.syncUser,{
-            userId: id,
-            email,
-            name,
-        })
+        await ctx.runMutation(api.user.syncUser, {
+          userId: id,
+          email,
+          name,
+        });
       } catch (error) {
-        console.log("\n\t Error creating user : "+error);
+        console.error("Error creating user:", error);
         return new Response("Error creating user", { status: 500 });
       }
     }
