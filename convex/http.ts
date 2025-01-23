@@ -10,8 +10,8 @@ http.route({
   path: "/clerk-webhook",
   method: "POST",
   handler: httpAction(async (ctx, request) => {
-    const WebhookSecret = process.env.CLERK_WEBHOOK_SECRET;
-    if (!WebhookSecret) {
+    const webhookSecret = process.env.CLERK_WEBHOOK_SECRET;
+    if (!webhookSecret) {
       throw new Error("Missing CLERK_WEBHOOK_SECRET environment variable");
     }
 
@@ -28,7 +28,7 @@ http.route({
     const payload = await request.json();
     const body = JSON.stringify(payload);
 
-    const wh = new Webhook(WebhookSecret);
+    const wh = new Webhook(webhookSecret);
     let evt: WebhookEvent;
 
     try {
@@ -50,7 +50,7 @@ http.route({
 
       try {
         // Save user to db
-        await ctx.runMutation(api.user.syncUser, {
+        await ctx.runMutation(api.users.syncUser, {
           userId: id,
           email,
           name,

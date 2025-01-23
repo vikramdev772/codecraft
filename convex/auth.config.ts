@@ -1,9 +1,8 @@
-
 export default {
-    providers:[
-        {
-            domain: "https://fluent-feline-45.clerk.accounts.dev",
-            applicationID:"convex",
-        },
+    providers: [
+      {
+        domain: "https://equipped-platypus-84.clerk.accounts.dev/",
+        applicationID: "convex",
+      },
     ]
-};
+  };
